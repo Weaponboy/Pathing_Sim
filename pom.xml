@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>Pathing_Sim</artifactId>
-    <version>v0.0.0</version>
+<project>
+<modelVersion>4.0.0</modelVersion>
+<groupId>org.example</groupId>
+<artifactId>Pathing_Sim</artifactId>
+<version>v0.0.0</version>
+<packaging>jar</packaging>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+<name>Pathing sim</name>
+<description>The maven main core project description</description>
+<url>http://maven.apache.org</url>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Weaponboy Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/Weaponboy/Pathing_Sim</url>
-        </repository>
-    </distributionManagement>
+<licenses>
+    <license>
+        <name>Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+    </license>
+</licenses>
+
+<scm>
+    <url>https://svn.apache.org/viewvc/maven</url>
+</scm>
 
 </project>
