@@ -28,13 +28,14 @@ public class LineTest {
 
         Thread.sleep(2000);
 
+        
         sim.resetLoopTime();
 
-        while (Math.abs(sim.getRobotX() - 305) > 3 || Math.abs(sim.getRobotY() - 105) > 3 || Math.abs(sim.getRobotHeading() - targetHeading) > 2){
+        while (Math.abs(sim.getRobotX() - 305) > 2 || Math.abs(sim.getRobotY() - 105) > 2 || Math.abs(sim.getRobotHeading() - targetHeading) > 1){
 
-            if (Math.abs(sim.getRobotX() - 305) > 3 || Math.abs(sim.getRobotY() - 105) > 3){
+            if (Math.abs(sim.getRobotX() - 305) > 2 || Math.abs(sim.getRobotY() - 105) > 2 || Math.abs(sim.getRobotHeading() - targetHeading) > 1){
 
-                if (Math.abs(sim.getRobotX() - 210) < 3 && Math.abs(sim.getRobotY() - 80) < 3){
+                if (Math.abs(sim.getRobotX() - 209) < 5 && Math.abs(sim.getRobotY() - 90) < 5){
                     targetHeading = 20;
                 }
 
@@ -81,6 +82,7 @@ public class LineTest {
             file.writeData();
 
         }
+
     }
 
 }
