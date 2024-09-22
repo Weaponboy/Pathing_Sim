@@ -20,28 +20,27 @@ public class LineTest {
 
     public static void main(String[] args) throws InterruptedException {
 
-        sim = new Sim(210, 22, 190,130,146,90);
+        sim = new Sim(326, 346, 220,180,180,120);
 
         pathFirst.buildPath(blueLeftBuilder.Position.right,blueLeftBuilder.Section.preload);
 
         follower.setPath(pathFirst.followablePath, pathFirst.pathingVelocity);
 
         Thread.sleep(2000);
-
         
         sim.resetLoopTime();
 
-        while (Math.abs(sim.getRobotX() - 305) > 2 || Math.abs(sim.getRobotY() - 105) > 2 || Math.abs(sim.getRobotHeading() - targetHeading) > 1){
+        while (Math.abs(sim.getRobotX() - 218) > 2 || Math.abs(sim.getRobotY() - 236) > 2 || Math.abs(sim.getRobotHeading() - targetHeading) > 1){
 
-            if (Math.abs(sim.getRobotX() - 305) > 2 || Math.abs(sim.getRobotY() - 105) > 2 || Math.abs(sim.getRobotHeading() - targetHeading) > 1){
+            if (Math.abs(sim.getRobotX() - 218) > 2 || Math.abs(sim.getRobotY() - 236) > 2 || Math.abs(sim.getRobotHeading() - targetHeading) > 1){
 
-                if (Math.abs(sim.getRobotX() - 209) < 5 && Math.abs(sim.getRobotY() - 90) < 5){
-                    targetHeading = 20;
-                }
+//                if (Math.abs(sim.getRobotX() - 209) < 5 && Math.abs(sim.getRobotY() - 90) < 5){
+//                    targetHeading = 20;
+//                }
 
-                if (Math.abs(sim.getRobotX() - 240) < 3 && Math.abs(sim.getRobotY() - 103) < 3){
-                    targetHeading = 270;
-                }
+//                if (Math.abs(sim.getRobotX() - 240) < 3 && Math.abs(sim.getRobotY() - 103) < 3){
+//                    targetHeading = 270;
+//                }
 
                 RobotPower path = follower.followPathAuto(targetHeading, sim.getRobotHeading(), sim.getRobotX(), sim.getRobotY(), sim.getxVelocity(), sim.getYVelocity());
 

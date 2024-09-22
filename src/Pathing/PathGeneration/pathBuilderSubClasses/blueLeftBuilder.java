@@ -220,7 +220,9 @@ public class blueLeftBuilder extends pathBuilderMain {
     private void thirdPositionPreload(){
 
         // drop purple pixel
-        buildCurveSegment(DPS1T, DPC1T, DPCT1T, DPE1T);
+//        buildCurveSegment(DPS1T, DPC1T, DPCT1T, DPE1T);
+
+        buildCurveSegment(new Vector2D(341, 324), new Vector2D(195, 286), new Vector2D(210, 238));
 
 //        buildLineSegment(new Vector2D(210, 23), new Vector2D(210, 180));
 

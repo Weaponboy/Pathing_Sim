@@ -85,7 +85,7 @@ public class Sim extends JFrame {
         int width = 720;
         int height = 720;
 
-        ImageIcon imageIcon = new ImageIcon("src/ImageBackround/centerstage.png");
+        ImageIcon imageIcon = new ImageIcon("src/ImageBackround/intodeep.png");
 
         // Resize the image to fit the size of the JFrame
         Image image = imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -170,7 +170,7 @@ public class Sim extends JFrame {
         startTime = System.currentTimeMillis();
 
         try {
-            Thread.sleep(20);
+            Thread.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
