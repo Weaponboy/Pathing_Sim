@@ -12,10 +12,16 @@ public class SegmentGenerator {
 
     static ArrayList<Vector2D> curvaturePoints = new ArrayList<>();
 
+    static ArrayList<Double> targetHeadings = new ArrayList<>();
+
     static double t = 0.0;
 
     public ArrayList<Vector2D> copyPath(){
         return Segment;
+    }
+
+    public ArrayList<Double> copyHeadings(){
+        return targetHeadings;
     }
 
     public ArrayList<Vector2D> copyCurvature(){
@@ -27,6 +33,7 @@ public class SegmentGenerator {
 
         //Clear segment array of the last segment
         Segment.clear();
+        targetHeadings.clear();
 
         //reset t back to zero
         t = 0;
@@ -51,6 +58,7 @@ public class SegmentGenerator {
 
         //Clear segment array of the last segment
         Segment.clear();
+        targetHeadings.clear();
 
         //reset t back to zero
         t = 0;
@@ -85,6 +93,7 @@ public class SegmentGenerator {
 
         //Clear segment array of the last segment
         Segment.clear();
+        targetHeadings.clear();
 
         //reset t back to zero
         t = 0;
@@ -107,6 +116,7 @@ public class SegmentGenerator {
     public void buildPathAvoidance( Vector2D startPoint, Vector2D controlPoint, Vector2D endPoint){
 
         Segment.clear();
+        targetHeadings.clear();
 
         t = 0;
 

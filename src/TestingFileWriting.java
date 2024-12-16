@@ -123,12 +123,18 @@ public class TestingFileWriting {
             fWriter.write( "Center Pod:" + CenterPod);
             fWriter.write(System.lineSeparator());
 
-            fWriter.flush();
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void flushData(){
+        try {
+            fWriter.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static long getTime(){

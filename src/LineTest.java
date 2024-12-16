@@ -24,6 +24,12 @@ public class LineTest {
 
         pathFirst.buildPath(blueLeftBuilder.Position.right,blueLeftBuilder.Section.preload);
 
+        pathFirst.calculateHeadings();
+
+        for (int i = 0; i < pathFirst.headingTargets.size(); i++){
+            System.out.println("heading targets" + Math.toDegrees(pathFirst.headingTargets.get(i)));
+        }
+
         follower.setPath(pathFirst.followablePath, pathFirst.pathingVelocity);
 
         Thread.sleep(2000);
@@ -79,7 +85,11 @@ public class LineTest {
             sim.update();
             file.setData(sim.getLoopTime(), sim.getRobotX(), sim.getRobotY(), sim.getRobotHeading());
             file.writeData();
+            if (follower.getCurrentIndex() < follower.pathLength()-1){
+                targetHeading = (Math.toDegrees(pathFirst.headingTargets.get(follower.getCurrentIndex()))+180);
+            }
 
+//            System.out.println("follower " + follower.getCurrentIndex());
         }
 
     }

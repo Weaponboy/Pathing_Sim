@@ -21,8 +21,8 @@ public class RotatableRectangle extends JComponent {
 
         g2d.setStroke(new BasicStroke(2));
 
-        g2d.rotate(angle, x + 40, y + 40); // Rotate around the center
-        g2d.drawRect(x, y, 80, 80); // Rectangle at (x, y) with width 80 and height 100
+        g2d.rotate(angle, x + 35, y + 31); // Rotate around the center
+        g2d.drawRect(x, y, 62, 70); // Rectangle at (x, y) with width 80 and height 100
     }
 
     // Method to update position

@@ -26,6 +26,16 @@ public class mecanumFollower {
 
     FollowPath pathfollow;
 
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public int pathLength() {
+        return pathfollow.followablePath.size();
+    }
+
+    int currentIndex = 0;
+
     public void setPath(ArrayList<Vector2D> trajectory, ArrayList<PathingVelocity> pathingVelocity){
         pathfollow = new FollowPath(trajectory, pathingVelocity);
     }
@@ -52,6 +62,8 @@ public class mecanumFollower {
         PathingVelocity pathingVelocity;
         int closestPos = pathfollow.getClosestPositionOnPath(robotPos);
         pathingVelocity = pathfollow.getTargetVelocity(closestPos);
+
+        currentIndex = closestPos;
 
         double curveY = Math.abs(YVelo*1.2)/2;
         double curveX = Math.abs(XVelo*1.2)/2;

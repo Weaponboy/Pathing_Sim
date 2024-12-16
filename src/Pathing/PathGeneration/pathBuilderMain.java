@@ -14,6 +14,8 @@ public class pathBuilderMain {
 
     public ArrayList<Vector2D> followablePath = new ArrayList<>();
 
+    public ArrayList<Double> headingTargets = new ArrayList<>();
+
     public ArrayList<PathingVelocity> pathingVelocity = new ArrayList<>();
 
     public Vector2D secondPoint = new Vector2D();
@@ -181,6 +183,24 @@ public class pathBuilderMain {
         }
 
         return 0;
+
+    }
+
+    public void calculateHeadings() {
+
+        // Loop through the points array, starting from the second point
+        for (int i = 1; i < followablePath.size(); i++) {
+            Vector2D prevPoint = followablePath.get(i - 1);
+            Vector2D currentPoint = followablePath.get(i);
+
+            // Calculate the difference in x and y
+            double dx = currentPoint.getX() - prevPoint.getX();
+            double dy = currentPoint.getY() - prevPoint.getY();
+
+            // Calculate the heading using atan2
+            double heading = Math.atan2(dy, dx); // Angle in radians
+            headingTargets.add(heading);
+        }
 
     }
 
