@@ -20,7 +20,7 @@ public class LineTest {
 
     public static void main(String[] args) throws InterruptedException {
 
-        sim = new Sim(326, 346, 220,180,180,120);
+        sim = new Sim(28, 28, 220,180,180,120);
 
         pathFirst.buildPath(blueLeftBuilder.Position.right,blueLeftBuilder.Section.preload);
 
@@ -86,7 +86,7 @@ public class LineTest {
             file.setData(sim.getLoopTime(), sim.getRobotX(), sim.getRobotY(), sim.getRobotHeading());
             file.writeData();
             if (follower.getCurrentIndex() < follower.pathLength()-1){
-                targetHeading = (Math.toDegrees(pathFirst.headingTargets.get(follower.getCurrentIndex()))+180);
+                targetHeading = (Math.toDegrees(pathFirst.headingTargets.get(follower.getCurrentIndex())));
             }
 
 //            System.out.println("follower " + follower.getCurrentIndex());

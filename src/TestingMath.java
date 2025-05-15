@@ -1,3 +1,7 @@
+import Pathing.Follower.Vector2D;
+import Pathing.PathingUtility.PathingPower;
+import RobotUtilities.PIDController;
+
 import java.awt.geom.Point2D;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
@@ -11,6 +15,10 @@ public class TestingMath {
     private static final ExecutorService executor = Executors.newFixedThreadPool(10);
 
     public static TestingFileWriting writer = new TestingFileWriting();
+
+    static PIDController correctiveXFinalAdjustment = new PIDController(0.095, 0, 0.001);
+    static PIDController correctiveYFinalAdjustment = new PIDController(0.15 , 0, 0.005);
+
 
     public enum autoState {
         preLoad,
@@ -145,16 +153,122 @@ public class TestingMath {
 
         calculatePosition(new Point2D.Double(150, 105), new Point2D.Double(100, 100), 355);
 
+        double pivotHeight = 18.5 + 43;
 
-        System.out.println("State before " + state.toString());
+        double X = Math.sqrt((pivotHeight*pivotHeight)+(29 * 29));
 
-        state = autoState.next(state);
+        double firstAngle = Math.toDegrees(Math.acos(pivotHeight / X));
+        double secondAngle = 180 - Math.toDegrees(Math.asin(8 * Math.sin(80) / X)) - 80;
 
-        System.out.println("State after " + state.toString());
+        System.out.println(189.5 - (((firstAngle + secondAngle)-90) * 0.794));
 
+//        System.out.println("State before " + state.toString());
+//
+//        state = autoState.next(state);
+//
+//        System.out.println("State after " + state.toString());
+
+
+        //first triangle
+        double firstHypot = Math.sqrt((pivotHeight*pivotHeight)+(30 * 30));
+
+        // right angle triangle angles
+        double angleA = Math.toDegrees(Math.atan(30/pivotHeight));
+        double angleB = Math.toDegrees(Math.atan(pivotHeight/30));
+        double angleC = 90;
+
+        //second triangle
+        double angleD = 87.6;
+        double angleE = Math.toDegrees((8 * Math.sin(Math.toRadians(angleD))) / firstHypot);
+        double angleF = 180 - angleE - angleD;
+
+        double sideD = firstHypot;
+        double sideE = 8;
+        double sideF = sideD * (Math.sin(Math.toRadians(angleF)) / Math.sin(Math.toRadians(angleD)));
+
+        //vision triangle
+        double angleG = 33.2;
+        double angleH = 180 - angleB - angleE;
+        double angleI = 180 - angleH - angleG;
+
+        double sideI = sideF;
+        double sideG = sideI * (Math.sin(Math.toRadians(angleG)) / Math.sin(Math.toRadians(angleI)));
+        double sideH = sideI * (Math.sin(Math.toRadians(angleH)) / Math.sin(Math.toRadians(angleI)));
+
+        //top vision triangle
+        double angleJ = angleG;
+        double angleK = (180 - angleJ)/2;
+        double angleL = (180 - angleJ)/2;
+
+        double sideL = sideI;
+        double sideJ = sideL * (Math.sin(Math.toRadians(angleJ)) / Math.sin(Math.toRadians(angleL)));
+        double sideK = sideL;
+
+        //bottom vision triangle
+        double angleM = angleH - angleK;
+        double angleN = 180 - angleL;
+        double angleO = angleI;
+
+        double sideN = sideG;
+        double sideO = sideJ;
+        double sideM = sideN * (Math.sin(Math.toRadians(angleM)) / Math.sin(Math.toRadians(angleN)));
+
+        double target = 0;
+
+        double armError = 15 - target;
+
+        double angleForTurret = Math.toDegrees(Math.acos(armError / 15));
+
+        double hypotSquared = (15 * 15) - Math.abs(armError) * Math.abs(armError);
+
+        double slideOffset = Math.sqrt(hypotSquared);
+//
+//        System.out.println(rotatePositionToGlobal(200, new Vector2D(-59, 18)).getX());
+//        System.out.println(rotatePositionToGlobal(200, new Vector2D(-59, 18)).getY());
+
+        Vector2D power = rotatePositionToGlobal(0, new Vector2D(2, 0));
+
+        System.out.println(power.getX());
+        System.out.println(-power.getY());
+
+        double headingError = Math.atan(-8  / 14.2);
+        double newHeading = 180 + Math.toDegrees(Math.atan(-4 / 14.2));
+
+        System.out.println(Math.cos(headingError));
+
+        System.out.println(Math.cos(headingError) * 40);
+
+        angle = Math.toDegrees((Math.acos(3.8 / 20)));
+        System.out.println(angle);
     }
 
+    public static PathingPower pidToPoint(Vector2D robotPos, Vector2D targetPos, double heading){
 
+        Vector2D error;
+        PathingPower correctivePower = new PathingPower();
+
+        error = new Vector2D( targetPos.getX() - robotPos.getX(),  targetPos.getY() - robotPos.getY());
+
+        double xDist = error.getX();
+        double yDist = error.getY();
+
+        double robotRelativeXError = yDist * Math.sin(Math.toRadians(heading)) + xDist * Math.cos(Math.toRadians(heading));
+        double robotRelativeYError = yDist * Math.cos(Math.toRadians(heading)) - xDist * Math.sin(Math.toRadians(heading));
+
+        double xPower = correctiveXFinalAdjustment.calculate(robotRelativeXError);
+        double yPower = correctiveYFinalAdjustment.calculate(robotRelativeYError);
+
+        correctivePower.set(robotRelativeXError, robotRelativeYError);
+
+        return correctivePower;
+    }
+
+    public static Vector2D rotatePositionToGlobal(double heading, Vector2D point){
+        double X = (point.getY()) * Math.sin(Math.toRadians(heading)) + (point.getX()) * Math.cos(Math.toRadians(heading));
+        double Y = (point.getY()) * Math.cos(Math.toRadians(heading)) - (point.getX()) * Math.sin(Math.toRadians(heading));
+
+        return new Vector2D(X, Y);
+    }
 
     public static double calculateAdjustment(double d, double d1, double x1, double d2, double x2) {
         double m = (x2 - x1) / (d2 - d1);

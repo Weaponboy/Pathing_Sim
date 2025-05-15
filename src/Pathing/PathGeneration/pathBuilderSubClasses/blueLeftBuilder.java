@@ -222,7 +222,11 @@ public class blueLeftBuilder extends pathBuilderMain {
         // drop purple pixel
 //        buildCurveSegment(DPS1T, DPC1T, DPCT1T, DPE1T);
 
-        buildCurveSegment( new Vector2D(331, 331), new Vector2D(204, 288), new Vector2D(200, 232));
+//        buildCurveSegment( new Vector2D(331, 331), new Vector2D(204, 288), new Vector2D(200, 232));
+
+        buildCurveSegment( new Vector2D(28, 28), new Vector2D(45, 306), new Vector2D(331, 331));
+
+//        buildLineSegment(new Vector2D(360, 120), new Vector2D(100, 120));
 
 //        buildLineSegment(new Vector2D(210, 23), new Vector2D(210, 180));
 
